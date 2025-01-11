@@ -59,4 +59,22 @@ switch ($action) {
         echo $show = json_encode($allPost);
 
         break;
+    case "like";
+        $id     = $_POST['likeId'];
+        $likes  = $_POST['likes'];
+
+        $likeUpdate = [];
+        $data = update('post', $id, $likeUpdate);
+
+        foreach ($data as $likeItem) {
+
+            if ($likeItem["likeId"] == $$id) {
+                $likeItem['likes']  = $likeItem['likes'] + 1;
+            }
+            array_push($likeUpdate, $likeItem);
+        }
+        return json_encode($likeUpdate);
+
+
+        break;
 };

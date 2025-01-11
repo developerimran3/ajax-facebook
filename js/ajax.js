@@ -293,7 +293,7 @@ $(document).ready(function () {
                     </li>
                   </ul>
                 </div>
-                <a href="#">Kajal Datta, Sufia Sepu and 550 others</a>
+                <a href="#">${item.likes} </a>
               </div>
               <div class="counts">
                 <a href="#">95 Comments</a>
@@ -304,7 +304,9 @@ $(document).ready(function () {
               <ul>
                 <li>
                   <span class="comment-icon"></span>
-                  <span>Like</span>
+                  <span class= "likeId" likes="${item.likes}" likeId= ${
+            item.id
+          }>Like</span>
                 </li>
 
                 <li data-bs-toggle="modal" data-bs-target="#create_comment_modal">
@@ -323,12 +325,40 @@ $(document).ready(function () {
           </div>
           <div class="post-comments-area">
           </div>
+          <div class="post-comments-area">
+
+
+          <div class="comment-item">
+            <img class="auth" src="./media/user_photo" alt="">
+            <div class="comment-data">
+              <span>name</span>
+              <p>wow nice</p>
+              <img class="cphoto" src="./media/comments/photo" alt="">
+            </div>
+          </div>
         </div>
+              </div>
 `;
         });
         $("#show_post").html(allData);
       },
     });
   }
+
+  //likes
+  $(document).on("click", ".likeId", function () {
+    const likeId = $(this).attr("likeId");
+    const likes = $(this).attr("likes");
+
+    $.ajax({
+      url: "./ajax/ajax_work.php?action=like",
+      method: "POST",
+      data: { likeId, likes },
+      success: (data) => {
+        console.log(data);
+      },
+      error: (data) => {},
+    });
+  });
   showData();
 });
